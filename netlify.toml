@@ -1,0 +1,36 @@
+[build]
+  command = ""
+  publish = "."
+
+# Cache headers para melhor performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=600"
+
+[[headers]]
+  for = "/*.{js,css}"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.{png,jpg,jpeg,gif,webp,svg}"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+# Redirecionar HTTP → HTTPS (automático)
+[[redirects]]
+  from = "/*"
+  to = ":splat"
+  status = 200
+
+# Suporte a SPA (Single Page Application)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

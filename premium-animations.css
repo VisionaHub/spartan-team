@@ -1,0 +1,348 @@
+/* ============================================
+   SPARTAN TEAM - PREMIUM ANIMATIONS
+   Adapted from Kleber di Paula Barbearia
+   Colors: Crimson Red + Black
+   ============================================ */
+
+/* ============================================
+   GLOW ANIMATIONS (PRIMARY)
+   ============================================ */
+@keyframes glowPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 1;
+  }
+}
+
+@keyframes glowPulseIntense {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(0.85);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   FLOATING ANIMATIONS
+   ============================================ */
+@keyframes floatUp {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes floatMestre {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.15);
+    opacity: 0.9;
+  }
+}
+
+/* ============================================
+   BORDER ROTATION ANIMATIONS
+   ============================================ */
+@keyframes rotateBorder {
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes rotateBorderSlow {
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+/* ============================================
+   REVEAL ANIMATIONS (GALLERY)
+   ============================================ */
+@keyframes revealScale {
+  0% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(0);
+  }
+}
+
+/* ============================================
+   MESH PULSE (HERO BACKGROUND)
+   ============================================ */
+@keyframes meshPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* ============================================
+   WHATSAPP BUTTON PULSE
+   ============================================ */
+@keyframes whatsappPulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   SCROLL BREATH (SCROLL INDICATOR)
+   ============================================ */
+@keyframes scrollBreath {
+  0%, 100% {
+    transform: scaleY(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scaleY(0.5);
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   PREMIUM CARD HOVER EFFECTS
+   ============================================ */
+.premium-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(220, 20, 60, 0.2);
+  border-radius: 20px;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.premium-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(220, 20, 60, 0.3), transparent);
+}
+
+.premium-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 30%, rgba(220, 20, 60, 0.04), transparent 60%);
+  pointer-events: none;
+}
+
+.premium-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(220, 20, 60, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 30px rgba(220, 20, 60, 0.1);
+}
+
+/* ============================================
+   GLASS MORPHISM EFFECTS
+   ============================================ */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+/* ============================================
+   ACCENT GLOW TEXT
+   ============================================ */
+.glow-text {
+  color: #DC143C;
+  text-shadow: 0 0 20px rgba(220, 20, 60, 0.4),
+               0 0 40px rgba(220, 20, 60, 0.2);
+}
+
+.glow-text-intense {
+  color: #DC143C;
+  text-shadow: 0 0 30px rgba(220, 20, 60, 0.5),
+               0 0 60px rgba(220, 20, 60, 0.2);
+}
+
+/* ============================================
+   MARQUEE ANIMATION (INLINE)
+   ============================================ */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee-animate {
+  animation: marquee 20s linear infinite;
+}
+
+/* ============================================
+   STAGGER ANIMATION FOR LISTS
+   ============================================ */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.stagger-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.stagger-item:nth-child(1).visible {
+  transition-delay: 0.1s;
+}
+
+.stagger-item:nth-child(2).visible {
+  transition-delay: 0.2s;
+}
+
+.stagger-item:nth-child(3).visible {
+  transition-delay: 0.3s;
+}
+
+.stagger-item:nth-child(4).visible {
+  transition-delay: 0.4s;
+}
+
+.stagger-item:nth-child(5).visible {
+  transition-delay: 0.5s;
+}
+
+/* ============================================
+   TIMELINE LINE FILL ANIMATION
+   ============================================ */
+@keyframes lineFill {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.timeline-fill {
+  animation: lineFill 3s linear;
+}
+
+/* ============================================
+   FEATURE HIGHLIGHT ANIMATION
+   ============================================ */
+@keyframes highlightLine {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+.feature-active::before {
+  animation: highlightLine 3s linear;
+}
+
+/* ============================================
+   BUTTON INTERACTIONS
+   ============================================ */
+.btn-premium {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-premium::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: var(--accent);
+  transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: -1;
+}
+
+.btn-premium:hover::before {
+  height: 100%;
+}
+
+.btn-premium:hover {
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* ============================================
+   MESH GRADIENT BACKGROUND
+   ============================================ */
+.mesh-gradient {
+  background: radial-gradient(ellipse at 20% 50%, rgba(220, 20, 60, 0.05) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, rgba(220, 20, 60, 0.03) 0%, transparent 50%),
+              radial-gradient(ellipse at 50% 80%, rgba(179, 0, 0, 0.04) 0%, transparent 50%);
+  animation: meshPulse 8s ease-in-out infinite;
+}
+
+/* ============================================
+   SMOOTHER TRANSITIONS
+   ============================================ */
+.smooth-transition {
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.smooth-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================
+   RESPONSIVE ANIMATIONS
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   DARK MODE OPTIMIZATIONS
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+  .premium-card {
+    background: rgba(255, 255, 255, 0.02);
+  }
+
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.03);
+  }
+}
