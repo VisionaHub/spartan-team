@@ -910,8 +910,12 @@ var lenis;
 function splitTextIntoChars(el){var t=el.textContent;el.textContent='';t.split('').forEach(function(c){var s=document.createElement('span');s.className='char';s.textContent=c===' '?'\u00A0':c;el.appendChild(s)});return el.querySelectorAll('.char')}
 function lerp(a,b,f){return a+(b-a)*f}
 
+/* ===== DETECT MOBILE ===== */
+var isMobile=window.matchMedia('(max-width:768px)').matches||window.innerWidth<768;
+
 /* ===== LENIS SMOOTH SCROLL ===== */
 function initSmoothScroll(){
+  if(isMobile)return;
   lenis=new Lenis({duration:1.2,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t))},smoothWheel:true,smoothTouch:false});
   lenis.on('scroll',function(e){scrollVelocity=e.velocity;ScrollTrigger.update()});
   gsap.ticker.add(function(time){lenis.raf(time*1000)});
@@ -946,8 +950,12 @@ function initHero(){
   gsap.to('.hero-tagline',{opacity:1,duration:0.6,delay:0.3});
   gsap.to('.hero-cta-wrap',{opacity:1,duration:0.6,delay:0.8});
   gsap.to('.scroll-indicator',{opacity:1,duration:0.6,delay:1.2});
-  gsap.to('.scroll-indicator',{opacity:0,y:-20,scrollTrigger:{trigger:'.hero',start:'10% top',end:'25% top',scrub:true}});
-  gsap.to('.hero',{y:-100,opacity:0,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  if(!isMobile){
+    gsap.to('.scroll-indicator',{opacity:0,y:-20,scrollTrigger:{trigger:'.hero',start:'10% top',end:'25% top',scrub:true}});
+    gsap.to('.hero',{y:-100,opacity:0,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  }else{
+    gsap.to('.scroll-indicator',{opacity:0,delay:2});
+  }
 }
 
 /* ===== MARQUEE ===== */
@@ -993,8 +1001,13 @@ function initManifesto(){
     var darkener=document.querySelector('.manifesto-darkener');
     if(darkener){
       // First 30% of scroll: darken the video
-      gsap.to(darkener,{backgroundColor:'rgba(0,0,0,0.8)',scrollTrigger:{trigger:section,start:'top top',end:'15% top',scrub:true}});
-      gsap.to('.manifesto-text',{opacity:1,scrollTrigger:{trigger:section,start:'top top',end:'12% top',scrub:true}});
+      if(!isMobile){
+        gsap.to(darkener,{backgroundColor:'rgba(0,0,0,0.8)',scrollTrigger:{trigger:section,start:'top top',end:'15% top',scrub:true}});
+        gsap.to('.manifesto-text',{opacity:1,scrollTrigger:{trigger:section,start:'top top',end:'12% top',scrub:true}});
+      }else{
+        gsap.to(darkener,{backgroundColor:'rgba(0,0,0,0.8)',duration:1});
+        gsap.to('.manifesto-text',{opacity:1,duration:1});
+      }
     }
   }
 }
