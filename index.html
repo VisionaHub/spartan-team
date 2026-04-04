@@ -256,9 +256,9 @@ ul,ol{list-style:none}
   -webkit-mask-composite:destination-in;
   mask-image:linear-gradient(to bottom,transparent 0%,transparent 8%,black 35%,black 65%,transparent 88%),linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
   mask-composite:intersect;
-}
-@media(max-width:768px){.manifesto-visual{display:none}.manifesto-content{grid-template-columns:1fr;text-align:center;background:url('spartano.jpg') center/contain no-repeat;min-height:70vh;display:flex;align-items:center;justify-content:center;-webkit-mask-image:radial-gradient(ellipse 70% 60% at center,black 30%,transparent 100%);mask-image:radial-gradient(ellipse 70% 60% at center,black 30%,transparent 100%)}.manifesto-text{position:relative;z-index:2;opacity:1;width:100%;padding:0 24px;text-shadow:0 2px 12px rgba(0,0,0,0.9)}}
-
+  }
+.manifesto-img-mobile{display:none}
+@media(max-width:768px){.manifesto-visual{display:none}.manifesto-content{grid-template-columns:1fr;text-align:center;background:url('spartano.jpg') center/contain no-repeat;background-color:rgba(0,0,0,0);background-blend-mode:darken;min-height:70vh;display:flex;align-items:center;justify-content:center;-webkit-mask-image:linear-gradient(to bottom,transparent,black 12%,black 88%,transparent),linear-gradient(to right,transparent,black 12%,black 88%,transparent);-webkit-mask-composite:destination-in;mask-image:linear-gradient(to bottom,transparent,black 12%,black 88%,transparent),linear-gradient(to right,transparent,black 12%,black 88%,transparent);mask-composite:intersect}.manifesto-text{position:relative;z-index:2;opacity:0;width:100%;padding:0 24px;text-shadow:0 2px 12px rgba(0,0,0,0.9)}}
 .manifesto-visual img,.manifesto-visual video{max-height:70vh;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 0 60px rgba(220,20,60,0.4)) drop-shadow(0 0 120px rgba(220,20,60,0.15))}
 @keyframes spartanoFloat{0%,100%{transform:translateY(0px)}50%{transform:translateY(-15px)}}
 .manifesto-word{display:inline;color:var(--grey-600);transition:color 0.3s}
@@ -1067,10 +1067,9 @@ function initManifesto(){
   if(spartanoEl){gsap.from(spartanoEl,{x:100,opacity:0,scale:0.9,duration:1.2,ease:'power3.out',scrollTrigger:{trigger:'.manifesto',start:'top 60%'}})}
 
   /* Darkener e texto: scroll-driven em todos os dispositivos */
-  var darkener=document.querySelector('.manifesto-darkener');
-  if(darkener && window.innerWidth<=768){
-    gsap.to(darkener,{backgroundColor:'rgba(0,0,0,0.75)',scrollTrigger:{trigger:section,start:'top top',end:'20% top',scrub:true}});
-    gsap.to('.manifesto-text',{opacity:1,scrollTrigger:{trigger:section,start:'10% top',end:'25% top',scrub:true}});
+  if(window.innerWidth<=768){
+    gsap.to('.manifesto-content',{backgroundColor:'rgba(0,0,0,0.8)',scrollTrigger:{trigger:section,start:'top top',end:'30% top',scrub:true}});
+    gsap.to('.manifesto-text',{opacity:1,scrollTrigger:{trigger:section,start:'25% top',end:'40% top',scrub:true}});
   }
 }
 
