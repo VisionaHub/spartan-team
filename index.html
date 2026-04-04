@@ -1024,6 +1024,16 @@ function initSmoothScroll(){
 /* ===== PRELOADER ===== */
 function initPreloader(){
   var preloader=document.querySelector('.preloader');
+
+  /* MOBILE: preloader instantâneo */
+  if(isMobile){
+    preloader.style.display='none';
+    document.body.classList.remove('preloader-active');
+    initAllAnimations();
+    return;
+  }
+
+  /* DESKTOP: preloader animado completo */
   var logoEl=document.querySelector('.preloader-logo');
   var bar=document.querySelector('.preloader-bar');
   var label=document.querySelector('.preloader-label');
@@ -1041,7 +1051,6 @@ function initPreloader(){
   tl.call(function(){label.textContent='PRONTO'},null,'-=0.3');
   tl.to(preloader,{opacity:0,duration:0.6,ease:'power2.inOut',onComplete:function(){
     preloader.style.display='none';
-    /* FIX LCP: Remover classe que esconde a hero logo */
     document.body.classList.remove('preloader-active');
     initAllAnimations();
   }});
@@ -1377,27 +1386,41 @@ function initFirePortal(){
 function initAllAnimations(){
   ScrollTrigger.create({start:'top -100',onUpdate:function(self){var nav=document.querySelector('.navigation');
     if(self.direction===1&&self.progress>0)nav.classList.add('scrolled');else if(self.progress===0)nav.classList.remove('scrolled')}});
+
+  /* Essenciais — rodam em tudo */
   try{initFirePortal()}catch(e){console.warn('initFirePortal:',e)}
   try{initLazyVideo()}catch(e){console.warn('initLazyVideo:',e)}
-  try{initHero()}catch(e){console.warn('initHero:',e)}
   try{initMarquee()}catch(e){console.warn('initMarquee:',e)}
   try{initManifesto()}catch(e){console.warn('initManifesto:',e)}
-  try{initMestre()}catch(e){console.warn('initMestre:',e)}
-  try{initCounters()}catch(e){console.warn('initCounters:',e)}
-  try{initHorarios()}catch(e){console.warn('initHorarios:',e)}
-  try{initEquipe()}catch(e){console.warn('initEquipe:',e)}
-  try{initGallery()}catch(e){console.warn('initGallery:',e)}
-  try{initPlans()}catch(e){console.warn('initPlans:',e)}
-  try{initTestimonials()}catch(e){console.warn('initTestimonials:',e)}
-  try{initCTA()}catch(e){console.warn('initCTA:',e)}
-  try{initHeadersReveal()}catch(e){console.warn('initHeadersReveal:',e)}
-  try{initLocationReveal()}catch(e){console.warn('initLocationReveal:',e)}
-  try{initFooterReveal()}catch(e){console.warn('initFooterReveal:',e)}
   try{initMenu()}catch(e){console.error('initMenu:',e)}
   try{initScrollLinks()}catch(e){console.error('initScrollLinks:',e)}
   try{initFooter()}catch(e){console.warn('initFooter:',e)}
-  try{initCursorTrail()}catch(e){console.warn('initCursorTrail:',e)}
-  try{init3DTilt()}catch(e){console.warn('init3DTilt:',e)}
+
+  /* Mobile: mostrar valores finais dos contadores imediatamente */
+  if(isMobile){
+    document.querySelectorAll('.stat-number[data-target]').forEach(function(el){
+      el.textContent=el.dataset.target;
+    });
+  }
+
+  if(!isMobile){
+    /* Animações de scroll — SÓ DESKTOP */
+    try{initHero()}catch(e){console.warn('initHero:',e)}
+    try{initMestre()}catch(e){console.warn('initMestre:',e)}
+    try{initCounters()}catch(e){console.warn('initCounters:',e)}
+    try{initHorarios()}catch(e){console.warn('initHorarios:',e)}
+    try{initEquipe()}catch(e){console.warn('initEquipe:',e)}
+    try{initGallery()}catch(e){console.warn('initGallery:',e)}
+    try{initPlans()}catch(e){console.warn('initPlans:',e)}
+    try{initTestimonials()}catch(e){console.warn('initTestimonials:',e)}
+    try{initCTA()}catch(e){console.warn('initCTA:',e)}
+    try{initHeadersReveal()}catch(e){console.warn('initHeadersReveal:',e)}
+    try{initLocationReveal()}catch(e){console.warn('initLocationReveal:',e)}
+    try{initFooterReveal()}catch(e){console.warn('initFooterReveal:',e)}
+    try{initCursorTrail()}catch(e){console.warn('initCursorTrail:',e)}
+    try{init3DTilt()}catch(e){console.warn('init3DTilt:',e)}
+  }
+
   setTimeout(function(){var wa=document.querySelector('.whatsapp-float');if(wa)wa.classList.add('visible')},500);
   console.log('⚔️ SPARTAN TEAM: All systems initialized');
 }
