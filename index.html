@@ -91,6 +91,7 @@ ul,ol{list-style:none}
    FIRE EFFECT BACKGROUND
    ============================================ */
 .fire-bg{position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:0.15}
+@media(max-width:768px){.fire-bg{display:none}}
 .fire-bg svg{width:100%;height:100%;display:block}
 
 /* ============================================
@@ -256,7 +257,7 @@ ul,ol{list-style:none}
   mask-image:linear-gradient(to bottom,transparent 0%,transparent 8%,black 35%,black 65%,transparent 88%),linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
   mask-composite:intersect;
 }
-.manifesto-img-mobile{display:none}
+@media(max-width:768px){.manifesto-visual{display:none}}
 @media(max-width:768px){
   .manifesto-video{display:none}
   .manifesto-img-mobile{
@@ -272,7 +273,7 @@ ul,ol{list-style:none}
 
 .manifesto-visual img,.manifesto-visual video{max-height:70vh;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 0 60px rgba(220,20,60,0.4)) drop-shadow(0 0 120px rgba(220,20,60,0.15))}
 @keyframes spartanoFloat{0%,100%{transform:translateY(0px)}50%{transform:translateY(-15px)}}
-@media(max-width:768px){.manifesto-content{grid-template-columns:1fr;text-align:center;position:relative}.manifesto-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;width:90%;opacity:0;text-shadow:0 2px 8px rgba(0,0,0,0.9)}.manifesto-visual{margin-top:0;position:relative;z-index:1}.manifesto-visual img,.manifesto-visual video{max-height:70vh}}
+@media(max-width:768px){.manifesto-content{grid-template-columns:1fr;text-align:center}.manifesto-text{position:relative;opacity:1;width:100%;padding:0 16px}}
 .manifesto-word{display:inline;color:var(--grey-600);transition:color 0.3s}
 .manifesto-word.active{color:var(--white)}
 .manifesto-word[data-highlight="true"].active{color:var(--accent);text-shadow:0 0 15px rgba(220,20,60,0.3)}
@@ -1272,6 +1273,7 @@ document.addEventListener('click',function(e){
 
 /* ===== FIRE PORTAL ===== */
 function initFirePortal(){
+  if(isMobile)return;
   var canvas=document.getElementById('fire-portal');if(!canvas)return;
   var ctx=canvas.getContext('2d');
   var hero=document.querySelector('.hero');
