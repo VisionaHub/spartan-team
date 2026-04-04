@@ -1078,17 +1078,11 @@ function initManifesto(){
   var spartanoEl=document.querySelector('.manifesto-visual video')||document.querySelector('.manifesto-visual img');
   if(spartanoEl){gsap.from(spartanoEl,{x:100,opacity:0,scale:0.9,duration:1.2,ease:'power3.out',scrollTrigger:{trigger:'.manifesto',start:'top 60%'}})}
 
-  if(window.innerWidth<=768){
-    var darkener=document.querySelector('.manifesto-darkener');
-    if(darkener){
-      if(!isMobile){
-        gsap.to(darkener,{backgroundColor:'rgba(0,0,0,0.8)',scrollTrigger:{trigger:section,start:'top top',end:'15% top',scrub:true}});
-        gsap.to('.manifesto-text',{opacity:1,scrollTrigger:{trigger:section,start:'top top',end:'12% top',scrub:true}});
-      }else{
-        gsap.to(darkener,{backgroundColor:'rgba(0,0,0,0.8)',duration:1});
-        gsap.to('.manifesto-text',{opacity:1,duration:1});
-      }
-    }
+  /* Darkener e texto: scroll-driven em todos os dispositivos */
+  var darkener=document.querySelector('.manifesto-darkener');
+  if(darkener && window.innerWidth<=768){
+    gsap.to(darkener,{backgroundColor:'rgba(0,0,0,0.75)',scrollTrigger:{trigger:section,start:'top top',end:'20% top',scrub:true}});
+    gsap.to('.manifesto-text',{opacity:1,scrollTrigger:{trigger:section,start:'10% top',end:'25% top',scrub:true}});
   }
 }
 
@@ -1098,35 +1092,35 @@ function initCounters(){
   nums.forEach(function(el){
     var target=parseFloat(el.dataset.target);var isD=target%1!==0;var obj={val:0};
     gsap.to(obj,{val:target,duration:2,ease:'power2.out',
-      scrollTrigger:{trigger:el,start:'top 85%',toggleActions:'play none none reverse'},
+      scrollTrigger:{trigger:el,start:'top 95%',toggleActions:'play none none reverse'},
       onUpdate:function(){el.textContent=isD?obj.val.toFixed(1).replace('.',','):Math.round(obj.val).toLocaleString('pt-BR')}});
   });
 }
 
 /* ===== LOCATION REVEAL ===== */
 function initLocationReveal(){
-  gsap.from('.location-info h2',{y:30,opacity:0,duration:0.8,scrollTrigger:{trigger:'.location-section',start:'top 75%'}});
-  gsap.from('.location-info p',{y:20,opacity:0,duration:0.6,delay:0.2,scrollTrigger:{trigger:'.location-section',start:'top 75%'}});
-  gsap.from('.location-detail',{y:15,opacity:0,duration:0.6,stagger:0.1,delay:0.3,scrollTrigger:{trigger:'.location-section',start:'top 75%'}});
-  gsap.from('.location-map',{scale:0.95,opacity:0,duration:0.8,delay:0.5,scrollTrigger:{trigger:'.location-section',start:'top 75%'}});
+  gsap.from('.location-info h2',{y:30,opacity:0,duration:0.8,scrollTrigger:{trigger:'.location-section',start:'top 95%'}});
+  gsap.from('.location-info p',{y:20,opacity:0,duration:0.6,delay:0.05,scrollTrigger:{trigger:'.location-section',start:'top 95%'}});
+  gsap.from('.location-detail',{y:15,opacity:0,duration:0.6,stagger:0.1,delay:0.05,scrollTrigger:{trigger:'.location-section',start:'top 95%'}});
+  gsap.from('.location-map',{scale:0.95,opacity:0,duration:0.8,delay:0.1,scrollTrigger:{trigger:'.location-section',start:'top 95%'}});
 }
 
 /* ===== FOOTER REVEAL ===== */
 function initFooterReveal(){
-  gsap.from('.footer-divider',{scaleX:0,opacity:0,duration:0.8,scrollTrigger:{trigger:'.footer',start:'top 85%'}});
-  gsap.from('.footer-brand-name',{y:20,opacity:0,duration:0.6,delay:0.1,scrollTrigger:{trigger:'.footer',start:'top 85%'}});
-  gsap.from('.footer-col-title',{y:20,opacity:0,duration:0.6,stagger:0.08,delay:0.2,scrollTrigger:{trigger:'.footer',start:'top 85%'}});
-  gsap.from('.footer-link',{y:10,opacity:0,duration:0.5,stagger:0.05,delay:0.3,scrollTrigger:{trigger:'.footer',start:'top 85%'}});
-  gsap.from('.footer-text',{y:10,opacity:0,duration:0.5,stagger:0.05,delay:0.3,scrollTrigger:{trigger:'.footer',start:'top 85%'}});
-  gsap.from('.footer-bottom',{y:20,opacity:0,duration:0.6,delay:0.5,scrollTrigger:{trigger:'.footer',start:'top 85%'}});
+  gsap.from('.footer-divider',{scaleX:0,opacity:0,duration:0.8,scrollTrigger:{trigger:'.footer',start:'top 95%'}});
+  gsap.from('.footer-brand-name',{y:20,opacity:0,duration:0.6,delay:0.1,scrollTrigger:{trigger:'.footer',start:'top 95%'}});
+  gsap.from('.footer-col-title',{y:20,opacity:0,duration:0.6,stagger:0.08,delay:0.05,scrollTrigger:{trigger:'.footer',start:'top 95%'}});
+  gsap.from('.footer-link',{y:10,opacity:0,duration:0.5,stagger:0.05,delay:0.05,scrollTrigger:{trigger:'.footer',start:'top 95%'}});
+  gsap.from('.footer-text',{y:10,opacity:0,duration:0.5,stagger:0.05,delay:0.05,scrollTrigger:{trigger:'.footer',start:'top 95%'}});
+  gsap.from('.footer-bottom',{y:20,opacity:0,duration:0.6,delay:0.1,scrollTrigger:{trigger:'.footer',start:'top 95%'}});
 }
 
 /* ===== HEADERS REVEAL ===== */
 function initHeadersReveal(){
-  gsap.from('.equipe-header',{y:30,opacity:0,duration:0.8,scrollTrigger:{trigger:'.equipe-section',start:'top 75%'}});
-  gsap.from('.horarios-header',{y:30,opacity:0,duration:0.8,scrollTrigger:{trigger:'.horarios-section',start:'top 75%'}});
-  gsap.from('.plans-header',{y:30,opacity:0,duration:0.8,scrollTrigger:{trigger:'.plans-section',start:'top 75%'}});
-  gsap.from('.gallery-header',{y:30,opacity:0,duration:0.8,scrollTrigger:{trigger:'.gallery',start:'top 75%'}});
+  gsap.from('.equipe-header',{y:30,opacity:0,duration:0.8,scrollTrigger:{trigger:'.equipe-section',start:'top 95%'}});
+  gsap.from('.horarios-header',{y:30,opacity:0,duration:0.8,scrollTrigger:{trigger:'.horarios-section',start:'top 95%'}});
+  gsap.from('.plans-header',{y:30,opacity:0,duration:0.8,scrollTrigger:{trigger:'.plans-section',start:'top 95%'}});
+  gsap.from('.gallery-header',{y:30,opacity:0,duration:0.8,scrollTrigger:{trigger:'.gallery',start:'top 95%'}});
 }
 
 /* ===== GALLERY ===== */
@@ -1135,7 +1129,7 @@ function initGallery(){
   if(!cards.length)return;
   cards.forEach(function(card,i){
     gsap.to(card,{opacity:1,y:0,duration:0.8,delay:i*0.2,ease:'power3.out',
-      scrollTrigger:{trigger:'.ct-grid',start:'top 75%',toggleActions:'play none none reverse'}});
+      scrollTrigger:{trigger:'.ct-grid',start:'top 95%',toggleActions:'play none none reverse'}});
   });
 }
 
@@ -1143,7 +1137,7 @@ function initGallery(){
 function initHorarios(){
   var cards=document.querySelectorAll('.horario-card');
   cards.forEach(function(card,i){
-    gsap.to(card,{opacity:1,y:0,duration:0.6,delay:i*0.08,ease:'power3.out',scrollTrigger:{trigger:'.horarios-section',start:'top 70%',toggleActions:'play none none reverse'}});
+    gsap.to(card,{opacity:1,y:0,duration:0.6,delay:i*0.08,ease:'power3.out',scrollTrigger:{trigger:'.horarios-section',start:'top 95%',toggleActions:'play none none reverse'}});
   });
 }
 
@@ -1152,7 +1146,7 @@ function initPlans(){
   var cards=document.querySelectorAll('.plan-card');
   cards.forEach(function(card,i){
     gsap.to(card,{opacity:1,y:0,duration:0.8,delay:i*0.15,ease:'power3.out',
-      scrollTrigger:{trigger:'.plans-section',start:'top 70%',toggleActions:'play none none reverse'}});
+      scrollTrigger:{trigger:'.plans-section',start:'top 95%',toggleActions:'play none none reverse'}});
   });
 }
 
@@ -1160,14 +1154,14 @@ function initPlans(){
 function initTestimonials(){
   var title=document.querySelector('.testimonials-title');
   var cards=document.querySelectorAll('.testimonial-card');
-  if(title){var chars=splitTextIntoChars(title);gsap.to(chars,{opacity:1,duration:0.05,stagger:0.03,scrollTrigger:{trigger:title,start:'top 80%',toggleActions:'play none none reverse'}})}
-  cards.forEach(function(card,i){gsap.from(card,{y:60,opacity:0,duration:0.8,delay:i*0.15,ease:'power3.out',scrollTrigger:{trigger:card,start:'top 85%',toggleActions:'play none none reverse'}})});
+  if(title){var chars=splitTextIntoChars(title);gsap.to(chars,{opacity:1,duration:0.05,stagger:0.03,scrollTrigger:{trigger:title,start:'top 95%',toggleActions:'play none none reverse'}})}
+  cards.forEach(function(card,i){gsap.from(card,{y:60,opacity:0,duration:0.8,delay:i*0.15,ease:'power3.out',scrollTrigger:{trigger:card,start:'top 95%',toggleActions:'play none none reverse'}})});
 }
 
 /* ===== CTA ===== */
 function initCTA(){
   var lines=document.querySelectorAll('.cta-line');var buttons=document.querySelector('.cta-buttons');
-  var tl=gsap.timeline({scrollTrigger:{trigger:'.cta-section',start:'top 70%',toggleActions:'play none none reverse'}});
+  var tl=gsap.timeline({scrollTrigger:{trigger:'.cta-section',start:'top 95%',toggleActions:'play none none reverse'}});
   lines.forEach(function(line,i){tl.from(line,{y:60,opacity:0,duration:0.8,ease:'power3.out'},i*0.15)});
   if(buttons)tl.from(buttons,{y:30,opacity:0,duration:0.6,ease:'power3.out'},'-=0.3');
 }
@@ -1176,16 +1170,16 @@ function initCTA(){
 function initMestre(){
   var imgWrap=document.querySelector('.mestre-img-wrap');
   gsap.from('.mestre-img-wrap',{x:-80,opacity:0,scale:0.95,filter:'blur(5px)',duration:1.2,ease:'power3.out',
-    scrollTrigger:{trigger:'.mestre-section',start:'top 70%'},
+    scrollTrigger:{trigger:'.mestre-section',start:'top 95%'},
     onStart:function(){if(imgWrap)imgWrap.classList.add('moldura-visible')}});
-  gsap.from('.mestre-img-wrap img',{opacity:0,duration:1.2,ease:'power3.out',scrollTrigger:{trigger:'.mestre-section',start:'top 70%'}});
-  gsap.from('.mestre-content',{x:80,opacity:0,duration:1,delay:0.2,ease:'power3.out',scrollTrigger:{trigger:'.mestre-section',start:'top 70%'}});
+  gsap.from('.mestre-img-wrap img',{opacity:0,duration:1.2,ease:'power3.out',scrollTrigger:{trigger:'.mestre-section',start:'top 95%'}});
+  gsap.from('.mestre-content',{x:80,opacity:0,duration:1,delay:0.05,ease:'power3.out',scrollTrigger:{trigger:'.mestre-section',start:'top 95%'}});
 }
 
 /* ===== EQUIPE ENTRANCE ===== */
 function initEquipe(){
-  gsap.from('.equipe-img-wrap',{scale:0.9,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.equipe-section',start:'top 70%'}});
-  gsap.from('.equipe-stats > div',{y:40,opacity:0,stagger:0.15,duration:0.8,ease:'power3.out',scrollTrigger:{trigger:'.equipe-stats',start:'top 85%'}});
+  gsap.from('.equipe-img-wrap',{scale:0.9,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.equipe-section',start:'top 95%'}});
+  gsap.from('.equipe-stats > div',{y:40,opacity:0,stagger:0.15,duration:0.8,ease:'power3.out',scrollTrigger:{trigger:'.equipe-stats',start:'top 95%'}});
 }
 
 /* ===== MENU ===== */
