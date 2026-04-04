@@ -154,6 +154,7 @@ ul,ol{list-style:none}
    MENU OVERLAY
    ============================================ */
 .menu-overlay{position:fixed;inset:0;z-index:99;background:rgba(0,0,0,0.98);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity 0.6s,visibility 0.6s}
+@media(max-width:768px){.menu-overlay{align-items:flex-start;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:80px 0 40px}}
 .menu-overlay.active{opacity:1;visibility:visible}
 .menu-content{display:grid;grid-template-columns:1fr 1fr;gap:80px;width:100%;max-width:1000px;padding:0 var(--container-padding)}
 .menu-column-title{font-family:var(--font-mono);font-size:11px;letter-spacing:3px;color:var(--accent);margin-bottom:40px;text-transform:uppercase}
@@ -189,7 +190,7 @@ ul,ol{list-style:none}
 @media(max-width:768px){.hero-tagline br{display:inline}}
 .hero-cta-wrap{margin-top:40px;opacity:0}
 .hero-cta{display:inline-block;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:3px;text-transform:uppercase;border:1px solid var(--white);color:var(--white);padding:16px 40px;position:relative;overflow:hidden;transition:color 0.4s}
-@media(max-width:768px){.hero-cta{display:block;width:100%;text-align:center;margin:0}.hero-cta-wrap{padding:0 16px;margin-top:0!important}}
+@media(max-width:768px){.hero-cta{display:block;width:100%;text-align:center;margin:0}.hero-cta-wrap{padding:0 16px;margin-top:10px!important}.hero-logo-img{margin:30px 0}}
 .hero-cta::before{content:'';position:absolute;bottom:0;left:0;width:100%;height:0%;background:var(--accent);transition:height 0.4s cubic-bezier(0.16,1,0.3,1);z-index:-1}
 .hero-cta:hover{color:#000}
 .hero-cta:hover::before{height:100%}
@@ -443,7 +444,7 @@ ul,ol{list-style:none}
 .testimonial-author{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;position:relative;z-index:1}
 .testimonial-role{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;color:var(--grey-400);text-transform:uppercase;margin-top:4px;position:relative;z-index:1}
 @media(max-width:1024px){.testimonials-grid{grid-template-columns:1fr;max-width:600px;margin:0 auto}}
-@media(max-width:768px){.testimonials-grid{display:flex;overflow-x:auto;gap:16px;padding:0 var(--container-padding);scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x}.testimonials-grid::-webkit-scrollbar{display:none}.testimonial-card{flex:0 0 calc(100% - 32px);scroll-snap-align:center;scroll-snap-stop:always}.testimonials-scroll-hint{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--grey-400);text-transform:uppercase;animation:hintPulse 2s ease-in-out infinite}@keyframes hintPulse{0%,100%{opacity:0.4}50%{opacity:1}}}
+@media(max-width:768px){.testimonials-grid{display:flex;overflow-x:auto;gap:16px;padding:0 var(--container-padding);scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x}.testimonials-grid::-webkit-scrollbar{display:none}.testimonial-card{flex:0 0 calc(100% - 32px);scroll-snap-align:center;scroll-snap-stop:always;touch-action:pan-x}.testimonials-scroll-hint{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--grey-400);text-transform:uppercase;animation:hintPulse 2s ease-in-out infinite}@keyframes hintPulse{0%,100%{opacity:0.4}50%{opacity:1}}}
 
 /* ============================================
    CTA FINAL
@@ -620,7 +621,7 @@ gtag('config', 'G-PMTH0FR4RQ');
     <p class="hero-tagline">CORPO E MENTE<br>ATRAVÉS DO MUAY THAI</p>
     <!-- FIX LCP: Logo visível por padrão, com width/height explícitos e fetchpriority -->
     <img src="logo.png" alt="Spartan Fight Team" fetchpriority="high" class="hero-logo-img">
-    <div class="hero-cta-wrap" style="margin-top:60px">
+    <div class="hero-cta-wrap" style="margin-top:20px">
       <a href="https://wa.me/5521965461992?text=Quero%20agendar%20uma%20aula%20experimental" class="hero-cta" target="_blank" rel="noopener">AGENDAR AULA GRÁTIS</a>
     </div>
   </div>
@@ -1265,7 +1266,6 @@ document.addEventListener('click',function(e){
 
 /* ===== FIRE PORTAL ===== */
 function initFirePortal(){
-  if(isMobile)return;
   var canvas=document.getElementById('fire-portal');if(!canvas)return;
   var ctx=canvas.getContext('2d');
   var hero=document.querySelector('.hero');
