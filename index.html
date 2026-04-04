@@ -256,6 +256,19 @@ ul,ol{list-style:none}
   mask-image:linear-gradient(to bottom,transparent 0%,transparent 8%,black 35%,black 65%,transparent 88%),linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
   mask-composite:intersect;
 }
+.manifesto-img-mobile{display:none}
+@media(max-width:768px){
+  .manifesto-video{display:none}
+  .manifesto-img-mobile{
+    display:block;
+    max-height:95vh;width:auto;max-width:120%;object-fit:contain;
+    filter:drop-shadow(0 0 40px rgba(220,20,60,0.3));
+    -webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 8%,black 35%,black 65%,transparent 88%),linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
+    -webkit-mask-composite:destination-in;
+    mask-image:linear-gradient(to bottom,transparent 0%,transparent 8%,black 35%,black 65%,transparent 88%),linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
+    mask-composite:intersect;
+  }
+}
 
 .manifesto-visual img,.manifesto-visual video{max-height:70vh;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 0 60px rgba(220,20,60,0.4)) drop-shadow(0 0 120px rgba(220,20,60,0.15))}
 @keyframes spartanoFloat{0%,100%{transform:translateY(0px)}50%{transform:translateY(-15px)}}
@@ -652,6 +665,7 @@ gtag('config', 'G-PMTH0FR4RQ');
         <!-- VIDEO: Carrega lazy via IntersectionObserver para não competir com LCP -->
         <!-- VIDEO: Carrega lazy quando o usuário se aproxima da seção -->
         <video poster="spartano.jpg" loop muted playsinline class="manifesto-video" preload="none" data-src="spartano.mp4"></video>
+        <img src="spartano.jpg" alt="Spartano" class="manifesto-img-mobile">
       </div>
     </div>
   </div>
