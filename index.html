@@ -20,6 +20,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@900&family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+<!-- FIX PERFORMANCE: Preload hero logo para LCP rápido -->
+<link rel="preload" as="image" href="logo.png" fetchpriority="high">
 <style>
 /* ============================================
    CSS VARIABLES — SPARTAN RED & BLACK
@@ -39,7 +41,8 @@
   --grey-900: #111111;
   --grey-800: #1a1a1a;
   --grey-600: #333333;
-  --grey-400: #888888;
+  /* FIX ACESSIBILIDADE: grey-400 mais claro para melhor contraste */
+  --grey-400: #999999;
   --grey-200: #cccccc;
   --glass: rgba(255,255,255,0.03);
   --glass-border: rgba(255,255,255,0.08);
@@ -186,6 +189,22 @@ ul,ol{list-style:none}
 .hero-cta::before{content:'';position:absolute;bottom:0;left:0;width:100%;height:0%;background:var(--accent);transition:height 0.4s cubic-bezier(0.16,1,0.3,1);z-index:-1}
 .hero-cta:hover{color:#000}
 .hero-cta:hover::before{height:100%}
+
+/* FIX LCP: Hero logo visível por padrão, animação via classe */
+.hero-logo-img{
+  width:clamp(300px,55vw,530px);
+  margin:80px 0;
+  transform:translateY(34px);
+  filter:drop-shadow(0 0 40px rgba(220,20,60,0.4)) drop-shadow(0 0 80px rgba(220,20,60,0.15));
+  /* FIX: NÃO começar com opacity:0 — isso mata o LCP */
+  opacity:1;
+  transition:opacity 0.3s ease;
+}
+/* Durante o preloader, esconder com classe */
+.preloader-active .hero-logo-img{
+  opacity:0;
+}
+
 .scroll-indicator{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0}
 .scroll-indicator span{font-family:var(--font-mono);font-size:9px;color:var(--grey-400);letter-spacing:3px}
 .scroll-line{width:2px;height:40px;background:var(--grey-400);animation:scrollBreath 2s ease-in-out infinite}
@@ -227,6 +246,17 @@ ul,ol{list-style:none}
   mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent 100%)}
 @media(max-width:768px){.manifesto-darkener{background:rgba(0,0,0,0)}}
 @media(min-width:769px){.manifesto-darkener{background:rgba(0,0,0,0)!important}}
+
+/* Vídeo do gladiador - funciona em desktop E mobile */
+.manifesto-video{
+  max-height:95vh;width:auto;max-width:120%;object-fit:contain;
+  filter:drop-shadow(0 0 40px rgba(220,20,60,0.3));
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 8%,black 35%,black 65%,transparent 88%),linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
+  -webkit-mask-composite:destination-in;
+  mask-image:linear-gradient(to bottom,transparent 0%,transparent 8%,black 35%,black 65%,transparent 88%),linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
+  mask-composite:intersect;
+}
+
 .manifesto-visual img,.manifesto-visual video{max-height:70vh;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 0 60px rgba(220,20,60,0.4)) drop-shadow(0 0 120px rgba(220,20,60,0.15))}
 @keyframes spartanoFloat{0%,100%{transform:translateY(0px)}50%{transform:translateY(-15px)}}
 @media(max-width:768px){.manifesto-content{grid-template-columns:1fr;text-align:center;position:relative}.manifesto-text{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;width:90%;opacity:0;text-shadow:0 2px 8px rgba(0,0,0,0.9)}.manifesto-visual{margin-top:0;position:relative;z-index:1}.manifesto-visual img,.manifesto-visual video{max-height:70vh}}
@@ -318,7 +348,6 @@ ul,ol{list-style:none}
 .horario-item{font-family:var(--font-mono);font-size:11px;color:var(--grey-200);padding:8px 0;letter-spacing:1px;position:relative;z-index:1;background:linear-gradient(90deg,transparent,rgba(220,20,60,0.1),transparent);padding:8px 8px;border-radius:6px;margin:4px 0}
 .horario-item:hover{background:linear-gradient(90deg,transparent,rgba(220,20,60,0.2),transparent);color:var(--accent)}
 @media(max-width:1024px){.horarios-grid{grid-template-columns:repeat(4,1fr);gap:16px}}
-@media(max-width:768px){.horarios-grid{grid-template-columns:repeat(3,1fr);gap:14px}.horario-card{padding:24px 16px}.horario-dia{font-size:1.1rem;margin-bottom:16px}.horario-item{font-size:10px;padding:6px 0}}
 @media(max-width:768px){.horarios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:100%;margin:0 auto;padding:0 var(--container-padding)}.horario-card{background:linear-gradient(135deg,rgba(255,255,255,0.04) 0%,rgba(255,255,255,0.01) 100%);border:1px solid rgba(220,20,60,0.15);border-radius:16px;padding:20px 12px;text-align:center;transform:none;opacity:1;min-height:160px;display:flex;flex-direction:column;justify-content:flex-start;align-items:center}.horario-card::before{display:none}.horario-card::after{display:none}.horario-card:hover{border-color:rgba(220,20,60,0.3);box-shadow:0 15px 40px rgba(220,20,60,0.1)}.horario-dia{margin-bottom:8px;text-align:center;font-size:0.95rem;font-weight:900;white-space:nowrap}.horario-item{display:block;padding:3px 0;margin:0;background:none;font-size:10px;color:var(--accent);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.horario-item:not(:last-child)::after{content:'';color:transparent}}
 
 /* ============================================
@@ -488,6 +517,11 @@ ul,ol{list-style:none}
 @keyframes spinSlow{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 @keyframes rotateBackgroundSlow{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 .whatsapp-float svg{width:28px;height:28px;fill:#fff}
+
+/* ============================================
+   FIX: Conter layout shift e otimizar rendering
+   ============================================ */
+.stats-section,.horarios-section,.plans-section,.testimonials{contain:layout style}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PMTH0FR4RQ"></script>
 <script>
@@ -497,7 +531,8 @@ gtag('js', new Date());
 gtag('config', 'G-PMTH0FR4RQ');
 </script>
 </head>
-<body>
+<!-- FIX LCP: classe preloader-active controla visibilidade durante loading -->
+<body class="preloader-active">
 
 <!-- FIRE EFFECT BACKGROUND -->
 <div class="fire-bg">
@@ -577,7 +612,8 @@ gtag('config', 'G-PMTH0FR4RQ');
   <canvas id="fire-portal"></canvas>
   <div class="hero-content">
     <p class="hero-tagline">CORPO E MENTE ATRAVÉS DO MUAY THAI</p>
-    <img src="logo.png" alt="Spartan Fight Team" style="width:clamp(300px,55vw,530px);margin:80px 0;transform:translateY(34px);filter:drop-shadow(0 0 40px rgba(220,20,60,0.4)) drop-shadow(0 0 80px rgba(220,20,60,0.15));opacity:0" class="hero-logo-img">
+    <!-- FIX LCP: Logo visível por padrão, com width/height explícitos e fetchpriority -->
+    <img src="logo.png" alt="Spartan Fight Team" width="530" height="530" fetchpriority="high" class="hero-logo-img">
     <div class="hero-cta-wrap" style="margin-top:60px">
       <a href="https://wa.me/5521965461992?text=Quero%20agendar%20uma%20aula%20experimental" class="hero-cta" target="_blank" rel="noopener">AGENDAR AULA GRÁTIS</a>
     </div>
@@ -613,11 +649,9 @@ gtag('config', 'G-PMTH0FR4RQ');
       <div class="manifesto-text" id="manifesto-text"></div>
       <div class="manifesto-visual">
         <div class="manifesto-darkener"></div>
-        <video src="spartano.mp4" autoplay loop muted playsinline style="max-height:95vh;width:auto;max-width:120%;object-fit:contain;filter:drop-shadow(0 0 40px rgba(220,20,60,0.3));
-          -webkit-mask-image:linear-gradient(to bottom,transparent 0%,transparent 8%,black 35%,black 65%,transparent 88%),linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
-          -webkit-mask-composite:destination-in;
-          mask-image:linear-gradient(to bottom,transparent 0%,transparent 8%,black 35%,black 65%,transparent 88%),linear-gradient(to right,transparent 0%,black 10%,black 90%,transparent 100%);
-          mask-composite:intersect"></video>
+        <!-- VIDEO: Carrega lazy via IntersectionObserver para não competir com LCP -->
+        <!-- VIDEO: Carrega lazy quando o usuário se aproxima da seção -->
+        <video poster="spartano.jpg" loop muted playsinline class="manifesto-video" preload="none" data-src="spartano.mp4"></video>
       </div>
     </div>
   </div>
@@ -630,7 +664,8 @@ gtag('config', 'G-PMTH0FR4RQ');
       <div class="mestre-visual">
         <div class="mestre-aura"></div>
         <div class="mestre-img-wrap">
-          <img src="jivaldo.jpeg" alt="Mestre Jivaldo Ribeiro" loading="lazy">
+          <!-- FIX: width/height explícitos + decoding async -->
+          <img src="jivaldo.jpeg" alt="Mestre Jivaldo Ribeiro" loading="lazy" decoding="async" width="450" height="600">
         </div>
       </div>
       <div class="mestre-content">
@@ -685,7 +720,8 @@ gtag('config', 'G-PMTH0FR4RQ');
       <p>90 Atletas • 1 Visão <span class="equipe-dot">•</span> <span class="equipe-break">Infinitas Possibilidades</span></p>
     </div>
     <div class="equipe-img-wrap">
-      <img src="equipe.png" alt="Spartan Team - Equipe Completa" loading="lazy">
+      <!-- FIX: width/height explícitos -->
+      <img src="equipe.png" alt="Spartan Team - Equipe Completa" loading="lazy" decoding="async" width="900" height="506">
     </div>
     <div class="equipe-stats">
       <div><div class="equipe-stat-num">90</div><div class="equipe-stat-label">Alunos Ativos</div></div>
@@ -704,7 +740,8 @@ gtag('config', 'G-PMTH0FR4RQ');
     </div>
     <div class="ct-grid">
       <div class="ct-card">
-        <img src="tatame1.png" alt="CT Spartan - Tatame e Mural" loading="lazy">
+        <!-- FIX: width/height explícitos -->
+        <img src="tatame1.png" alt="CT Spartan - Tatame e Mural" loading="lazy" decoding="async" width="600" height="375">
         <div class="ct-card-overlay"></div>
         <div class="ct-card-glass">
           <h3 class="ct-card-name">O Tatame</h3>
@@ -712,7 +749,7 @@ gtag('config', 'G-PMTH0FR4RQ');
         </div>
       </div>
       <div class="ct-card">
-        <img src="tatame2.png" alt="CT Spartan - Área de Treino" loading="lazy">
+        <img src="tatame2.png" alt="CT Spartan - Área de Treino" loading="lazy" decoding="async" width="600" height="375">
         <div class="ct-card-overlay"></div>
         <div class="ct-card-glass">
           <h3 class="ct-card-name">Área de Treino</h3>
@@ -732,7 +769,7 @@ gtag('config', 'G-PMTH0FR4RQ');
     </div>
     <div class="plans-grid">
       <div class="plan-card">
-        <img class="plan-image" src="luva.png" alt="Iniciante" loading="lazy">
+        <img class="plan-image" src="luva.png" alt="Plano Iniciante" loading="lazy" decoding="async" width="400" height="220">
         <div class="plan-body">
           <p class="plan-name">INICIANTE</p>
           <p class="plan-price">R$ 99 <span>/mês</span></p>
@@ -747,7 +784,7 @@ gtag('config', 'G-PMTH0FR4RQ');
       </div>
       <div class="plan-card featured">
         <span class="plan-badge">MAIS POPULAR</span>
-        <img class="plan-image" src="bandagem.png" alt="Intermediário" loading="lazy">
+        <img class="plan-image" src="bandagem.png" alt="Plano Intermediário" loading="lazy" decoding="async" width="400" height="220">
         <div class="plan-body">
           <p class="plan-name">INTERMEDIÁRIO</p>
           <p class="plan-price">R$ 149 <span>/mês</span></p>
@@ -762,7 +799,7 @@ gtag('config', 'G-PMTH0FR4RQ');
         </div>
       </div>
       <div class="plan-card">
-        <img class="plan-image" src="medalha.png" alt="Avançado" loading="lazy">
+        <img class="plan-image" src="medalha.png" alt="Plano Avançado" loading="lazy" decoding="async" width="400" height="220">
         <div class="plan-body">
           <p class="plan-name">AVANÇADO</p>
           <p class="plan-price">R$ 199 <span>/mês</span></p>
@@ -857,7 +894,8 @@ gtag('config', 'G-PMTH0FR4RQ');
       </div>
     </div>
     <div class="location-map">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.5928470123456!2d-43.45678!3d-22.89012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9bda05ba6e6e6e6f%3A0x1234567890abcdef!2sRua%20Roque%20Barbosa%2C%207%20-%20Jardim%20Bangu%2C%20Rio%20de%20Janeiro%20-%20RJ!5e0!3m2!1spt-BR!2sbr!4v1234567890" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <!-- FIX ACESSIBILIDADE: Adicionado title e loading=lazy no iframe -->
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.5928470123456!2d-43.45678!3d-22.89012!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9bda05ba6e6e6e6f%3A0x1234567890abcdef!2sRua%20Roque%20Barbosa%2C%207%20-%20Jardim%20Bangu%2C%20Rio%20de%20Janeiro%20-%20RJ!5e0!3m2!1spt-BR!2sbr!4v1234567890" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa - CT Spartan Team, Rua Roque Barbosa 7, Jardim Bangu"></iframe>
     </div>
   </div>
 </section>
@@ -893,15 +931,23 @@ gtag('config', 'G-PMTH0FR4RQ');
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.243-1.214l-.29-.175-3.012.79.806-2.942-.192-.304A8 8 0 1112 20z"/></svg>
 </a>
 
-<!-- CDN SCRIPTS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- FIX PERFORMANCE: Scripts com defer para não bloquear renderização -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js" defer></script>
+<!-- FIX PERFORMANCE: Three.js só carrega no desktop (mobile não usa WebGL) -->
+<script>
+if(window.innerWidth>768 && !('ontouchstart' in window)){
+  var s=document.createElement('script');
+  s.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+  s.defer=true;
+  document.head.appendChild(s);
+}
+</script>
 
 <script>
 /* ===================================================================
-   SPARTAN TEAM — MAIN JAVASCRIPT (PREMIUM)
+   SPARTAN TEAM — MAIN JAVASCRIPT (PERFORMANCE OPTIMIZED)
    =================================================================== */
 var isTouch='ontouchstart'in window||navigator.maxTouchPoints>0;
 var isMobile=window.innerWidth<=768;
@@ -910,9 +956,6 @@ var lenis;
 
 function splitTextIntoChars(el){var t=el.textContent;el.textContent='';t.split('').forEach(function(c){var s=document.createElement('span');s.className='char';s.textContent=c===' '?'\u00A0':c;el.appendChild(s)});return el.querySelectorAll('.char')}
 function lerp(a,b,f){return a+(b-a)*f}
-
-/* ===== DETECT MOBILE ===== */
-var isMobile=window.matchMedia('(max-width:768px)').matches||window.innerWidth<768;
 
 /* ===== LENIS SMOOTH SCROLL ===== */
 function initSmoothScroll(){
@@ -941,13 +984,21 @@ function initPreloader(){
   }},'-=0.3');
   tl.to(chars,{backgroundImage:'linear-gradient(180deg,#fff,#DC143C,#B30000)',textShadow:'0 0 40px rgba(220,20,60,0.8), 0 0 80px rgba(220,20,60,0.4)',duration:0.6},'-=0.5');
   tl.call(function(){label.textContent='PRONTO'},null,'-=0.3');
-  tl.to(preloader,{opacity:0,duration:0.6,ease:'power2.inOut',onComplete:function(){preloader.style.display='none';initAllAnimations()}});
+  tl.to(preloader,{opacity:0,duration:0.6,ease:'power2.inOut',onComplete:function(){
+    preloader.style.display='none';
+    /* FIX LCP: Remover classe que esconde a hero logo */
+    document.body.classList.remove('preloader-active');
+    initAllAnimations();
+  }});
 }
 
 /* ===== HERO ===== */
 function initHero(){
+  /* FIX LCP: Logo já está visível, apenas animar entrada suave */
   var heroLogo=document.querySelector('.hero-logo-img');
-  if(heroLogo)gsap.to(heroLogo,{opacity:1,scale:1,filter:'blur(0px)',duration:1.2,ease:'power3.out',delay:0});
+  if(heroLogo){
+    gsap.from(heroLogo,{scale:0.95,filter:'blur(3px)',duration:1.2,ease:'power3.out',delay:0});
+  }
   gsap.to('.hero-tagline',{opacity:1,duration:0.6,delay:0.3});
   gsap.to('.hero-cta-wrap',{opacity:1,duration:0.6,delay:0.8});
   gsap.to('.scroll-indicator',{opacity:1,duration:0.6,delay:1.2});
@@ -968,6 +1019,23 @@ function initMarquee(){
   var tw1=gsap.to(tr1,{xPercent:-50,duration:20,ease:'none',repeat:-1});
   gsap.set(tr2,{xPercent:-50});var tw2=gsap.to(tr2,{xPercent:0,duration:22,ease:'none',repeat:-1});
   if(lenis)lenis.on('scroll',function(){var s=1+Math.abs(scrollVelocity)*0.15;tw1.timeScale(Math.min(s,6));tw2.timeScale(Math.min(s,6))});
+}
+
+/* ===== LAZY VIDEO LOAD ===== */
+function initLazyVideo(){
+  var video=document.querySelector('.manifesto-video[data-src]');
+  if(!video)return;
+  var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        video.src=video.dataset.src;
+        video.removeAttribute('data-src');
+        video.play().catch(function(){});
+        observer.unobserve(video);
+      }
+    });
+  },{rootMargin:'300px 0px'});
+  observer.observe(video);
 }
 
 /* ===== MANIFESTO ===== */
@@ -993,15 +1061,12 @@ function initManifesto(){
       end:function(){return'top+='+(((i+1)/allWords.length)*(section.offsetHeight-window.innerHeight))+' top'},
       onEnter:function(){word.classList.add('active')},onLeaveBack:function(){word.classList.remove('active')}});
   });
-  // Spartano entrance
   var spartanoEl=document.querySelector('.manifesto-visual video')||document.querySelector('.manifesto-visual img');
   if(spartanoEl){gsap.from(spartanoEl,{x:100,opacity:0,scale:0.9,duration:1.2,ease:'power3.out',scrollTrigger:{trigger:'.manifesto',start:'top 60%'}})}
 
-  // Mobile: darken video first, then reveal text
   if(window.innerWidth<=768){
     var darkener=document.querySelector('.manifesto-darkener');
     if(darkener){
-      // First 30% of scroll: darken the video
       if(!isMobile){
         gsap.to(darkener,{backgroundColor:'rgba(0,0,0,0.8)',scrollTrigger:{trigger:section,start:'top top',end:'15% top',scrub:true}});
         gsap.to('.manifesto-text',{opacity:1,scrollTrigger:{trigger:section,start:'top top',end:'12% top',scrub:true}});
@@ -1012,9 +1077,6 @@ function initManifesto(){
     }
   }
 }
-
-/* ===== COLLECTION (CT SERVICES) ===== */
-function initCollection(){/* not used in this version */}
 
 /* ===== COUNTERS ===== */
 function initCounters(){
@@ -1053,7 +1115,7 @@ function initHeadersReveal(){
   gsap.from('.gallery-header',{y:30,opacity:0,duration:0.8,scrollTrigger:{trigger:'.gallery',start:'top 75%'}});
 }
 
-/* ===== GALLERY (HORIZONTAL SCROLL) ===== */
+/* ===== GALLERY ===== */
 function initGallery(){
   var cards=document.querySelectorAll('.ct-card');
   if(!cards.length)return;
@@ -1105,7 +1167,6 @@ function initMestre(){
   gsap.from('.mestre-img-wrap img',{opacity:0,duration:1.2,ease:'power3.out',scrollTrigger:{trigger:'.mestre-section',start:'top 70%'}});
   gsap.from('.mestre-content',{x:80,opacity:0,duration:1,delay:0.2,ease:'power3.out',scrollTrigger:{trigger:'.mestre-section',start:'top 70%'}});
 }
-function initMestreReveal(){}
 
 /* ===== EQUIPE ENTRANCE ===== */
 function initEquipe(){
@@ -1146,7 +1207,7 @@ function initFooter(){
   if(bt)bt.addEventListener('click',function(){if(lenis)lenis.scrollTo(0,{duration:2});else window.scrollTo({top:0,behavior:'smooth'})});
 }
 
-/* ===== WEBGL ===== */
+/* ===== WEBGL (só desktop) ===== */
 function initWebGL(){
   if(isMobile||isTouch)return;var canvas=document.getElementById('webgl-canvas');if(!canvas||!window.THREE)return;
   try{var scene=new THREE.Scene();var camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
@@ -1164,7 +1225,7 @@ function initWebGL(){
   window.addEventListener('resize',function(){camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight)})}catch(e){console.warn('WebGL:',e)}
 }
 
-/* ===== CURSOR TRAIL ===== */
+/* ===== CURSOR TRAIL (só desktop) ===== */
 function initCursorTrail(){
   if(isTouch)return;var canvas=document.getElementById('cursor-trail');if(!canvas)return;
   var ctx=canvas.getContext('2d');canvas.width=window.innerWidth;canvas.height=window.innerHeight;
@@ -1182,7 +1243,7 @@ function initCursorTrail(){
     while(particles.length>80)particles.shift()}animate();
 }
 
-/* ===== 3D TILT ON CARDS ===== */
+/* ===== 3D TILT ON CARDS (só desktop) ===== */
 function init3DTilt(){
   if(isTouch)return;
   document.querySelectorAll('.product-card-inner').forEach(function(inner){
@@ -1207,7 +1268,7 @@ function initFirePortal(){
   var ctx=canvas.getContext('2d');
   var hero=document.querySelector('.hero');
   var ringParticles=[];var embers=[];
-  var baseRadius,cx,cy,ringCount=150,emberCount=60;
+  var baseRadius,cx,cy,ringCount=isMobile?80:150,emberCount=isMobile?30:60;
   function resize(){canvas.width=hero.offsetWidth;canvas.height=hero.offsetHeight;cx=canvas.width/2;cy=canvas.height/2;var radiusMultiplier=window.innerWidth<=768?0.37:0.3;baseRadius=Math.min(canvas.width,canvas.height)*radiusMultiplier;init()}
   function init(){
     ringParticles=[];for(var i=0;i<ringCount;i++){ringParticles.push({angle:(Math.PI*2/ringCount)*i+Math.random()*0.2,radiusOffset:(Math.random()-0.5)*30,speed:0.003+Math.random()*0.002,size:3+Math.random()*5,opacity:0.3+Math.random()*0.5,life:Math.random()})}
@@ -1220,16 +1281,13 @@ function initFirePortal(){
   function draw(){
     requestAnimationFrame(draw);if(!heroVisible){ctx.clearRect(0,0,canvas.width,canvas.height);return}
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    // Dark center vignette
     var dg=ctx.createRadialGradient(cx,cy,0,cx,cy,baseRadius*0.5);
     dg.addColorStop(0,'rgba(0,0,0,0.6)');dg.addColorStop(1,'transparent');
     ctx.fillStyle=dg;ctx.fillRect(0,0,canvas.width,canvas.height);
-    // Glow rings
     ctx.save();
     var glows=[{rm:0.92,a:0.12,lw:20,sb:50},{rm:1.0,a:0.08,lw:35,sb:70},{rm:1.08,a:0.05,lw:60,sb:90}];
     for(var g=0;g<glows.length;g++){var gd=glows[g];ctx.beginPath();ctx.arc(cx,cy,baseRadius*gd.rm,0,Math.PI*2);ctx.strokeStyle='rgba(220,20,60,'+gd.a+')';ctx.lineWidth=gd.lw;ctx.shadowBlur=gd.sb;ctx.shadowColor='rgba(220,20,60,0.3)';ctx.stroke()}
     ctx.restore();
-    // Ring particles
     for(var i=0;i<ringParticles.length;i++){var p=ringParticles[i];p.angle+=p.speed;p.life-=0.003;if(p.life<=0){p.life=1;p.angle=Math.random()*Math.PI*2}
       var pr=baseRadius+p.radiusOffset;var px=cx+Math.cos(p.angle)*pr;var py=cy+Math.sin(p.angle)*pr;
       var grad=ctx.createRadialGradient(px,py,0,px,py,p.size);
@@ -1237,7 +1295,6 @@ function initFirePortal(){
       grad.addColorStop(0.4,'rgba(255,69,0,'+(p.opacity*p.life*0.6)+')');
       grad.addColorStop(1,'rgba(220,20,60,0)');
       ctx.fillStyle=grad;ctx.beginPath();ctx.arc(px,py,p.size,0,Math.PI*2);ctx.fill()}
-    // Rising embers
     for(var i=0;i<embers.length;i++){var e=embers[i];e.y+=e.vy;e.x+=e.vx+Math.sin(e.y*0.01)*0.3;e.life-=0.002;e.opacity=Math.max(0,e.opacity-0.001);
       if(e.y<-50||e.life<=0){e.y=canvas.height+20;e.x=Math.random()*canvas.width;e.life=1;e.opacity=0.2+Math.random()*0.5}
       ctx.globalAlpha=e.opacity*e.life;
@@ -1253,11 +1310,11 @@ function initAllAnimations(){
   ScrollTrigger.create({start:'top -100',onUpdate:function(self){var nav=document.querySelector('.navigation');
     if(self.direction===1&&self.progress>0)nav.classList.add('scrolled');else if(self.progress===0)nav.classList.remove('scrolled')}});
   try{initFirePortal()}catch(e){console.warn('initFirePortal:',e)}
+  try{initLazyVideo()}catch(e){console.warn('initLazyVideo:',e)}
   try{initHero()}catch(e){console.warn('initHero:',e)}
   try{initMarquee()}catch(e){console.warn('initMarquee:',e)}
   try{initManifesto()}catch(e){console.warn('initManifesto:',e)}
   try{initMestre()}catch(e){console.warn('initMestre:',e)}
-  try{initMestreReveal()}catch(e){console.warn('initMestreReveal:',e)}
   try{initCounters()}catch(e){console.warn('initCounters:',e)}
   try{initHorarios()}catch(e){console.warn('initHorarios:',e)}
   try{initEquipe()}catch(e){console.warn('initEquipe:',e)}
