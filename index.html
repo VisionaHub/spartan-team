@@ -940,6 +940,37 @@ gtag('config', 'G-PMTH0FR4RQ');
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.243-1.214l-.29-.175-3.012.79.806-2.942-.192-.304A8 8 0 1112 20z"/></svg>
 </a>
 
+<!-- PREVIEW LIMITER -->
+<div id="preview-badge" style="position:fixed;bottom:16px;left:16px;z-index:9998;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:#666;background:rgba(0,0,0,0.8);border:1px solid rgba(220,20,60,0.15);border-radius:6px;padding:6px 12px;opacity:0.6;pointer-events:none;transition:all 0.3s"></div>
+<div id="preview-expired" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:none;align-items:center;justify-content:center;text-align:center;padding:40px">
+  <div>
+    <p style="font-family:'Unbounded',sans-serif;font-size:clamp(1.5rem,4vw,2.5rem);font-weight:900;color:#fff;margin-bottom:16px">PREVIEW ENCERRADO</p>
+    <p style="font-family:'Outfit',sans-serif;font-size:16px;color:#999;line-height:1.8;margin-bottom:32px">Suas 3 visualizações de preview expiraram.<br>Entre em contato para adquirir o site completo.</p>
+    <a href="https://wa.me/5521990446331?text=Quero%20adquirir%20meu%20site%20com%20a%20VisionaHub" target="_blank" style="display:inline-block;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;background:#DC143C;color:#000;padding:16px 40px;text-decoration:none;transition:all 0.3s">FALAR COM VISIONAHUB</a>
+  </div>
+</div>
+<script>
+(function(){
+  var MAX_VIEWS=3,MAX_TIME=300;
+  var views=parseInt(localStorage.getItem('pv_views')||'0');
+  var badge=document.getElementById('preview-badge');
+  var expired=document.getElementById('preview-expired');
+  if(views>=MAX_VIEWS){expired.style.display='flex';return}
+  views++;localStorage.setItem('pv_views',String(views));
+  var left=MAX_VIEWS-views;
+  var secs=MAX_TIME;
+  function update(){
+    var m=Math.floor(secs/60),s=secs%60;
+    badge.textContent='PREVIEW '+views+'/'+MAX_VIEWS+' · '+m+':'+(s<10?'0':'')+s;
+  }
+  update();
+  var timer=setInterval(function(){
+    secs--;update();
+    if(secs<=0){clearInterval(timer);expired.style.display='flex'}
+  },1000);
+})();
+</script>
+
 <!-- CDN SCRIPTS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
