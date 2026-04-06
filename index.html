@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>SPARTAN TEAM — Muay Thai Premium | Rio de Janeiro</title>
+<title>Spartan Fight Team</title>
 <meta name="description" content="SPARTAN TEAM — Centro de treinamento de Muay Thai no Rio de Janeiro. Saúde, bem-estar e qualidade de vida. Do iniciante ao atleta.">
 <meta property="og:title" content="SPARTAN TEAM — Muay Thai Premium">
 <meta property="og:description" content="Forje sua melhor versão através do Muay Thai. Mestre Jivaldo Ribeiro.">
@@ -111,7 +111,7 @@ ul,ol{list-style:none}
    WEBGL CANVAS
    ============================================ */
 #webgl-canvas{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0.08}
-#fire-portal{position:absolute;inset:0;z-index:1;pointer-events:none;animation:rotateBackgroundSlow 120s linear infinite}
+#fire-portal{position:absolute;inset:0;z-index:1;pointer-events:none}
 
 /* ============================================
    PRELOADER
@@ -1279,12 +1279,17 @@ function initFirePortal(){
     embers=[];for(var i=0;i<emberCount;i++){embers.push({x:Math.random()*canvas.width,y:canvas.height+Math.random()*100,vy:-0.5-Math.random()*2,vx:(Math.random()-0.5)*0.5,size:1+Math.random()*3,opacity:0.2+Math.random()*0.5,life:Math.random()})}
   }
   resize();window.addEventListener('resize',function(){setTimeout(resize,200)},{passive:true});
-  var heroVisible=true;
+  var rotation=0;
   var obs=new IntersectionObserver(function(e){heroVisible=e[0].isIntersecting},{threshold:0.01});
   obs.observe(hero);
   function draw(){
     requestAnimationFrame(draw);if(!heroVisible){ctx.clearRect(0,0,canvas.width,canvas.height);return}
     ctx.clearRect(0,0,canvas.width,canvas.height);
+    rotation+=0.0005;
+    ctx.save();
+    ctx.translate(cx,cy);
+    ctx.rotate(rotation);
+    ctx.translate(-cx,-cy);
     var dg=ctx.createRadialGradient(cx,cy,0,cx,cy,baseRadius*0.5);
     dg.addColorStop(0,'rgba(0,0,0,0.6)');dg.addColorStop(1,'transparent');
     ctx.fillStyle=dg;ctx.fillRect(0,0,canvas.width,canvas.height);
@@ -1305,6 +1310,7 @@ function initFirePortal(){
       var col=e.life>0.6?'#FFD700':e.life>0.3?'#FF4500':'#DC143C';
       ctx.fillStyle=col;ctx.beginPath();ctx.arc(e.x,e.y,e.size,0,Math.PI*2);ctx.fill()}
     ctx.globalAlpha=1;
+    ctx.restore();
   }
   draw();
 }
