@@ -198,8 +198,8 @@ ul,ol{list-style:none}
 /* FIX LCP: Hero logo visível por padrão, animação via classe */
 .hero-logo-img{
   width:clamp(300px,55vw,530px);
-  margin:40px 0;
-  transform:translateY(-20px);
+ margin:50px 0 110px;
+transform:translateY(0px);
   filter:drop-shadow(0 0 40px rgba(220,20,60,0.4)) drop-shadow(0 0 80px rgba(220,20,60,0.15));
   /* FIX: NÃO começar com opacity:0 — isso mata o LCP */
   opacity:1;
@@ -1301,7 +1301,7 @@ function initFirePortal(){
   var hero=document.querySelector('.hero');
   var ringParticles=[];var embers=[];
   var baseRadius,cx,cy,ringCount=isMobile?80:150,emberCount=isMobile?30:60;
-  function resize(){canvas.width=hero.offsetWidth;canvas.height=hero.offsetHeight;cx=canvas.width/2;cy=canvas.height/2 - 40;var radiusMultiplier=window.innerWidth<=768?0.37:0.3;baseRadius=Math.min(canvas.width,canvas.height)*radiusMultiplier;init()}
+  function resize(){canvas.width=hero.offsetWidth;canvas.height=hero.offsetHeight;cx=canvas.width/2;cy=canvas.height/2;var radiusMultiplier=window.innerWidth<=768?0.37:0.3;baseRadius=Math.min(canvas.width,canvas.height)*radiusMultiplier;init()}
   function init(){
     ringParticles=[];for(var i=0;i<ringCount;i++){ringParticles.push({angle:(Math.PI*2/ringCount)*i+Math.random()*0.2,radiusOffset:(Math.random()-0.5)*30,speed:0.003+Math.random()*0.002,size:3+Math.random()*5,opacity:0.3+Math.random()*0.5,life:Math.random()})}
     embers=[];for(var i=0;i<emberCount;i++){embers.push({x:Math.random()*canvas.width,y:canvas.height+Math.random()*100,vy:-0.5-Math.random()*2,vx:(Math.random()-0.5)*0.5,size:1+Math.random()*3,opacity:0.2+Math.random()*0.5,life:Math.random()})}
