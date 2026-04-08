@@ -953,7 +953,7 @@ gtag('config', 'G-PMTH0FR4RQ');
   var badge=document.getElementById('preview-badge');
   var expired=document.getElementById('preview-expired');
   if(views>=MAX_VIEWS){expired.style.display='flex';return}
-  views++;localStorage.setItem('pv_views',String(views));
+  views++;localStorage.setItem('pv_views_v2',String(views));
   var left=MAX_VIEWS-views;
   var secs=MAX_TIME;
   function update(){
