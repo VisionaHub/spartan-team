@@ -196,8 +196,10 @@ ul,ol{list-style:none}
 .hero-cta:hover::before{height:100%}
 
 /* FIX LCP: Hero logo visível por padrão, animação via classe */
-margin:80px 0 40px;
-  transform:translateY(34px);
+.hero-logo-img{
+  width:clamp(300px,55vw,530px);
+  margin:80px 0;
+  transform:translateY(10px);
   filter:drop-shadow(0 0 40px rgba(220,20,60,0.4)) drop-shadow(0 0 80px rgba(220,20,60,0.15));
   /* FIX: NÃO começar com opacity:0 — isso mata o LCP */
   opacity:1;
