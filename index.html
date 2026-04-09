@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>Spartan Fight Team</title>
 <meta name="description" content="SPARTAN TEAM — Centro de treinamento de Muay Thai no Rio de Janeiro. Saúde, bem-estar e qualidade de vida. Do iniciante ao atleta.">
 <meta property="og:title" content="Spartan Fight Team">
@@ -72,10 +72,10 @@
    RESET & BASE
    ============================================ */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{font-size:16px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;scroll-behavior:auto}
+html{font-size:16px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;scroll-behavior:auto;touch-action:manipulation}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
-body{font-family:var(--font-body);background:var(--black);color:var(--white);overflow-x:hidden;font-weight:300}
+body{font-family:var(--font-body);background:var(--black);color:var(--white);overflow-x:hidden;font-weight:300;touch-action:manipulation}
 a{text-decoration:none;color:inherit}
 img{max-width:100%;display:block}
 button{border:none;background:none;cursor:pointer;font-family:inherit;color:inherit}
@@ -443,6 +443,7 @@ ul,ol{list-style:none}
 .testimonial-text{font-size:15px;line-height:1.8;color:var(--grey-200);margin-bottom:24px;position:relative;z-index:1}
 .testimonial-author{font-family:var(--font-mono);font-size:11px;letter-spacing:2px;color:var(--accent);text-transform:uppercase;position:relative;z-index:1}
 .testimonial-role{font-family:var(--font-mono);font-size:10px;letter-spacing:1px;color:var(--grey-400);text-transform:uppercase;margin-top:4px;position:relative;z-index:1}
+.testimonials-scroll-hint{display:none}
 @media(max-width:1024px){.testimonials-grid{grid-template-columns:1fr;max-width:600px;margin:0 auto}}
 @media(max-width:768px){.testimonials-grid{display:flex;overflow-x:auto;gap:16px;padding:0 var(--container-padding);scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x;overscroll-behavior-y:none}.testimonials-grid::-webkit-scrollbar{display:none}.testimonial-card{flex:0 0 calc(100% - 32px);scroll-snap-align:center;scroll-snap-stop:always;touch-action:pan-x;-webkit-user-drag:none}.testimonials-scroll-hint{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:20px;font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--grey-400);text-transform:uppercase;animation:hintPulse 2s ease-in-out infinite}@keyframes hintPulse{0%,100%{opacity:0.4}50%{opacity:1}}}
 
@@ -742,9 +743,9 @@ gtag('config', 'G-PMTH0FR4RQ');
 <!-- GALLERY (CT) -->
 <section class="gallery" id="gallery">
   <div class="container">
-    <div class="gallery-header">
+    <div class="gallery-header" style="text-align:center">
+      <h2 style="margin-bottom:8px">NOSSO CT</h2>
       <span style="font-family:var(--font-mono);font-size:13px;font-weight:600;letter-spacing:3px;color:var(--grey-400)">CENTRO DE TREINAMENTO</span>
-      <h2>NOSSO CT</h2>
     </div>
     <div class="ct-grid">
       <div class="ct-card">
@@ -782,8 +783,8 @@ gtag('config', 'G-PMTH0FR4RQ');
           <p class="plan-name">INICIANTE</p>
           <p class="plan-price">R$ 99 <span>/mês</span></p>
           <ul class="plan-features">
-            <li>2 aulas por semana</li>
-            <li>Técnica básica</li>
+            <li>3 aulas por semana</li>
+            <li>Técnica completa</li>
             <li>Condicionamento físico</li>
             <li>Suporte do Mestre</li>
           </ul>
@@ -834,7 +835,7 @@ gtag('config', 'G-PMTH0FR4RQ');
     </div>
     <div class="testimonials-grid">
       <div class="testimonial-card"><div class="testimonial-quote">"</div><p class="testimonial-text">Comecei sem acreditar que conseguiria. Em 4 meses, perdi peso, ganhei confiança e uma família. Spartan mudou minha vida.</p><p class="testimonial-author">MARCOS T.</p><p class="testimonial-role">ALUNO DESDE 2023</p></div>
-      <div class="testimonial-card"><div class="testimonial-quote">"</div><p class="testimonial-text">O Mestre Jivaldo tem uma didática incrível. Me sinto seguro e desafiado ao mesmo tempo. Nunca mais parei de treinar.</p><p class="testimonial-author">FERNANDA L.</p><p class="testimonial-role">ALUNA DESDE 2022</p></div>
+      <div class="testimonial-card"><div class="testimonial-quote">"</div><p class="testimonial-text">O Mestre Jivaldo tem uma didática incrível. Me sinto segura e desafiada ao mesmo tempo. Nunca mais parei de treinar.</p><p class="testimonial-author">FERNANDA L.</p><p class="testimonial-role">ALUNA DESDE 2022</p></div>
       <div class="testimonial-card"><div class="testimonial-quote">"</div><p class="testimonial-text">Vim pela saúde e fiquei pelo ambiente. A equipe é uma família. Melhor decisão que tomei para combater a ansiedade.</p><p class="testimonial-author">RAFAEL S.</p><p class="testimonial-role">ALUNO DESDE 2024</p></div>
     </div>
     <div class="testimonials-scroll-hint">← ARRASTE PARA VER MAIS →</div>
@@ -848,7 +849,7 @@ gtag('config', 'G-PMTH0FR4RQ');
     <div class="cta-line cta-line-1">PRONTO PARA FORJAR SUA</div>
     <div class="cta-line cta-line-3">MELHOR VERSÃO?</div>
     <div class="cta-buttons">
-      <a href="https://wa.me/5521965461992?text=Quero%20agendar%20uma%20aula%20experimental%20GRATUITA" target="_blank" class="cta-btn-primary">AGENDAR VISITA GRATUITA</a>
+      <a href="https://wa.me/5521965461992?text=Quero%20agendar%20uma%20aula%20experimental%20GRATUITA" target="_blank" class="cta-btn-primary">AGENDAR VISITA</a>
       <button class="cta-btn-secondary" data-scroll-to="#mestre">CONHECER O MESTRE</button>
     </div>
   </div>
@@ -940,36 +941,6 @@ gtag('config', 'G-PMTH0FR4RQ');
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a8 8 0 01-4.243-1.214l-.29-.175-3.012.79.806-2.942-.192-.304A8 8 0 1112 20z"/></svg>
 </a>
 
-<!-- PREVIEW LIMITER -->
-<div id="preview-badge" style="position:fixed;bottom:16px;left:16px;z-index:9998;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:#666;background:rgba(0,0,0,0.8);border:1px solid rgba(220,20,60,0.15);border-radius:6px;padding:6px 12px;opacity:0.6;pointer-events:none;transition:all 0.3s"></div>
-<div id="preview-expired" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:none;align-items:center;justify-content:center;text-align:center;padding:40px">
-  <div>
-    <p style="font-family:'Unbounded',sans-serif;font-size:clamp(1.5rem,4vw,2.5rem);font-weight:900;color:#fff;margin-bottom:16px">PREVIEW ENCERRADO</p>
-    <p style="font-family:'Outfit',sans-serif;font-size:16px;color:#999;line-height:1.8;margin-bottom:32px">Suas 3 visualizações de preview expiraram.<br>Entre em contato para adquirir o site completo.</p>
-    <a href="https://wa.me/5521990446331?text=Quero%20adquirir%20meu%20site%20com%20a%20VisionaHub" target="_blank" style="display:inline-block;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;background:#DC143C;color:#000;padding:16px 40px;text-decoration:none;transition:all 0.3s">FALAR COM VISIONAHUB</a>
-  </div>
-</div>
-<script>
-(function(){
-  var MAX_VIEWS=3,MAX_TIME=300;
-  var views=parseInt(localStorage.getItem('pv_views')||'0');
-  var badge=document.getElementById('preview-badge');
-  var expired=document.getElementById('preview-expired');
-  if(views>=MAX_VIEWS){expired.style.display='flex';return}
-  views++;localStorage.setItem('pv_views',String(views));
-  var left=MAX_VIEWS-views;
-  var secs=MAX_TIME;
-  function update(){
-    var m=Math.floor(secs/60),s=secs%60;
-    badge.textContent='PREVIEW '+views+'/'+MAX_VIEWS+' · '+m+':'+(s<10?'0':'')+s;
-  }
-  update();
-  var timer=setInterval(function(){
-    secs--;update();
-    if(secs<=0){clearInterval(timer);expired.style.display='flex'}
-  },1000);
-})();
-</script>
 
 <!-- CDN SCRIPTS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
